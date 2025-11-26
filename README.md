@@ -24,18 +24,6 @@ MediaFinder é um aplicativo desktop desenvolvido para **organizar** e **assisti
 
 ---
 
-#### 🎨 Modos de Exibição
-| 🌞 Modo Claro | 🌚 Modo Escuro |
-|--------------|----------------|
-| ![Tela Modo Claro](./Tela%20Modo%20Claro.png) | ![Tela Modo Escuro](./Tela%20modo%20Escuro.png) |
-
----
-
-#### 🔧 Configurações Avançadas
-| |
-|----------------|
-| ![Tela configurações](./tela%20configurações.png) |
-
 ---
 
 

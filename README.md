@@ -23,7 +23,12 @@ MediaFinder é um aplicativo desktop desenvolvido para **organizar** e **assisti
 | ![Tela Inicial](./Telainicial.png) | ![Tela de Vídeos](./Telavideos.png) | ![Tela Configurações](./Telaconfig.png) |
 
 ---
+👨‍💻 Autor
 
+Joadson Rocha
+🔗 https://joadsonrocha.github.io
+
+🐙 https://github.com/JoadsonRocha
 ---
 
 

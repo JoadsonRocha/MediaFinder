@@ -21,7 +21,7 @@ MediaFinder é um aplicativo desktop desenvolvido para **organizar** e **assisti
 | 🏠 Tela Inicial | 🎞 Tela de Vídeos | ⚙ Tela de Configurações |
 |----------------|------------------|--------------------------|
 | ![Tela Inicial](./Telainicial.png) | ![Tela de Vídeos](./Telavideos.png) | ![Tela Configurações](./Telaconfig.png) |
-
+ 🛑 **Observação técnica:** Se as miniaturas dos vídeos não aparecerem ou houver falhas de carregamento, verifique se o FFmpeg está corretamente instalado e acessível pelo sistema.
 ---
 👨‍💻 Autor
 

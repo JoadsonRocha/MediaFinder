@@ -13,6 +13,29 @@ MediaFinder é um aplicativo desktop desenvolvido para **organizar** e **assisti
 
 ---
 
-## 📁 Estrutura do Projeto
-```bash
+---
+
+### 📸 Screenshots
+
+#### 🏁 Tela Inicial, Vídeos e Configurações
+| 🏠 Tela Inicial | 🎞 Tela de Vídeos | ⚙ Tela de Configurações |
+|----------------|------------------|--------------------------|
+| ![Tela Inicial](./Telainicial.png) | ![Tela de Vídeos](./Telavideos.png) | ![Tela Configurações](./Telaconfig.png) |
+
+---
+
+#### 🎨 Modos de Exibição
+| 🌞 Modo Claro | 🌚 Modo Escuro |
+|--------------|----------------|
+| ![Tela Modo Claro](./Tela%20Modo%20Claro.png) | ![Tela Modo Escuro](./Tela%20modo%20Escuro.png) |
+
+---
+
+#### 🔧 Configurações Avançadas
+| |
+|----------------|
+| ![Tela configurações](./tela%20configurações.png) |
+
+---
+
 

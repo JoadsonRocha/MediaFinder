@@ -1,0 +1,30 @@
+# Dependências
+node_modules/
+package-lock.json
+
+# Builds e Empacotamento
+dist/
+build/
+out/
+
+# Dados locais e temporários
+thumbs/
+pasta.json
+*.log
+
+# Sistema Operacional
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDEs e Editores
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Antigravity / Gemini logs
+.gemini/

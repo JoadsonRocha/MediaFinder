@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MediaFinder — Organizador e Reprodutor de Vídeos</title>
+  
+  <!-- Fonte moderna Inter do Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Estilos da aplicação -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ============================================================
+       BANNER INFORMATIVO DE STATUS DO SISTEMA (ex: aviso do FFmpeg)
+       ============================================================ -->
+  <div id="bannerStatus" class="status-banner" hidden>
+    <div class="status-banner-content">
+      <span class="status-icon">💡</span>
+      <span id="bannerStatusTexto">FFmpeg não detectado no sistema. As capas automáticas estão temporariamente indisponíveis.</span>
+    </div>
+    <button id="btnFecharBanner" class="status-banner-close" aria-label="Fechar aviso">&times;</button>
+  </div>
+
+  <!-- ============================================================
+       CABEÇALHO PRINCIPAL (HEADER)
+       ============================================================ -->
+  <header id="appHeader">
+    <!-- Logo e Marca -->
+    <div class="logo" id="logoApp" title="MediaFinder">
+      <div class="logo-icon">MF</div>
+      <div class="logo-info">
+        <h1 class="logo-text">MediaFinder</h1>
+        <span class="logo-badge">v2.1</span>
+      </div>
+    </div>
+
+    <!-- Campo de Pesquisa em Tempo Real -->
+    <div class="search-group">
+      <div class="search-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+      </div>
+      <input 
+        id="inputBusca" 
+        type="search" 
+        placeholder="Pesquise por nome de arquivo de vídeo..." 
+        autocomplete="off"
+        spellcheck="false"
+      />
+      <button id="btnLimparBusca" class="btn-clear-search" hidden aria-label="Limpar pesquisa">&times;</button>
+    </div>
+
+    <!-- Ações Rápidas no Cabeçalho -->
+    <div class="header-actions">
+      <!-- Botão para Selecionar / Trocar Pasta -->
+      <button id="btnTrocarPastaHeader" class="btn-header" title="Escolher pasta de vídeos">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+        </svg>
+        <span class="btn-label">Pasta</span>
+      </button>
+
+      <!-- Botão Menu Dropdown Principal -->
+      <button id="menuToggle" class="menu-toggle" aria-label="Menu principal" aria-expanded="false">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- ============================================================
+       MENU DROPDOWN LATERAL / FLUTUANTE
+       ============================================================ -->
+  <nav id="menuDropdown" class="menu-dropdown" hidden>
+    <div class="menu-section">
+      <span class="menu-section-title">Biblioteca</span>
+      <ul>
+        <li>
+          <button data-action="all" class="menu-item active" id="menuItemAll">
+            <span class="item-icon">🎬</span>
+            <span class="item-text">Todos os Vídeos</span>
+            <span class="badge-count" id="countAllBadge">0</span>
+          </button>
+        </li>
+        <li>
+          <button data-action="fav" class="menu-item" id="menuItemFav">
+            <span class="item-icon">⭐</span>
+            <span class="item-text">Favoritos</span>
+            <span class="badge-count" id="countFavBadge">0</span>
+          </button>
+        </li>
+        <li>
+          <button data-action="trocar-pasta" class="menu-item">
+            <span class="item-icon">📁</span>
+            <span class="item-text">Mudar Pasta de Vídeos</span>
+          </button>
+        </li>
+      </ul>
+    </div>
+
+    <div class="menu-section">
+      <span class="menu-section-title">Opções</span>
+      <ul>
+        <li>
+          <button data-action="recarregar" class="menu-item">
+            <span class="item-icon">🔄</span>
+            <span class="item-text">Atualizar Catálogo</span>
+          </button>
+        </li>
+        <li>
+          <button data-action="toggle-recursivo" class="menu-item" id="btnToggleRecursivo">
+            <span class="item-icon">📂</span>
+            <span class="item-text">Subpastas: <strong id="lblRecursivo">Desativado</strong></span>
+          </button>
+        </li>
+      </ul>
+    </div>
+
+    <div class="menu-section">
+      <span class="menu-section-title">Informações</span>
+      <ul>
+        <li>
+          <button data-action="sobre" class="menu-item">
+            <span class="item-icon">ℹ️</span>
+            <span class="item-text">Sobre o MediaFinder</span>
+          </button>
+        </li>
+        <li>
+          <button data-action="dev" class="menu-item">
+            <span class="item-icon">👨‍💻</span>
+            <span class="item-text">Desenvolvedor</span>
+          </button>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ============================================================
+       BARRA DE CONTROLE E FILTROS (SUB-HEADER)
+       ============================================================ -->
+  <section class="control-bar">
+    <!-- Abas de Navegação Rápida -->
+    <div class="tabs-group">
+      <button id="tabTodos" class="tab-btn active" data-tab="todos">
+        🎬 Todos <span class="tab-badge" id="tabCountTodos">0</span>
+      </button>
+      <button id="tabFavoritos" class="tab-btn" data-tab="favoritos">
+        ⭐ Favoritos <span class="tab-badge" id="tabCountFav">0</span>
+      </button>
+    </div>
+
+    <!-- Indicador de Pasta Atual e Estatísticas -->
+    <div class="current-path-info" id="currentPathInfo" title="Clique para abrir ou trocar pasta">
+      <span class="path-icon">📁</span>
+      <span class="path-text" id="lblPastaAtual">Nenhuma pasta selecionada</span>
+    </div>
+
+    <!-- Controles de Ordenação -->
+    <div class="sort-group">
+      <label for="selectOrdenacao" class="sort-label">Ordenar:</label>
+      <select id="selectOrdenacao" class="sort-select">
+        <option value="nome-asc">Nome (A - Z)</option>
+        <option value="nome-desc">Nome (Z - A)</option>
+        <option value="data-desc">Mais Recentes</option>
+        <option value="tamanho-desc">Maior Tamanho</option>
+        <option value="duracao-desc">Maior Duração</option>
+      </select>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       CONTEÚDO PRINCIPAL: GRADE DE VÍDEOS (GRID)
+       ============================================================ -->
+  <main id="mainContent">
+    <!-- Resumo de resultados -->
+    <div class="results-header" id="resultsHeader">
+      <span id="resultsCount">Carregando coleção...</span>
+    </div>
+
+    <!-- Container da grade de cards -->
+    <div id="grid" class="video-grid">
+      <!-- Cards serão injetados dinamicamente pelo renderer.js -->
+    </div>
+  </main>
+
+  <!-- ============================================================
+       MODAL DO PLAYER DE VÍDEO INTEGRADO
+       ============================================================ -->
+  <div id="modalPlayer" class="modal-backdrop" hidden>
+    <div class="player-dialog">
+      <!-- Cabeçalho do Player com Título e Fechar -->
+      <div class="player-header">
+        <div class="player-title-box">
+          <span class="player-badge">REPRODUZINDO</span>
+          <h3 id="playerTituloVideo">Título do Vídeo</h3>
+        </div>
+        <button id="btnFecharPlayer" class="btn-close-modal" aria-label="Fechar reprodutor">&times;</button>
+      </div>
+
+      <!-- Elemento de Vídeo HTML5 -->
+      <div class="player-video-container">
+        <video id="videoPlayerElement" controls autoplay playsinline preload="auto">
+          Seu sistema não suporta a tag de vídeo.
+        </video>
+      </div>
+
+      <!-- Barra de Ações do Player -->
+      <div class="player-footer">
+        <div class="player-meta-info" id="playerMetaInfo">
+          <!-- Detalhes do arquivo preenchidos dinamicamente -->
+        </div>
+        <div class="player-actions">
+          <button id="btnPlayerAbrirWindows" class="btn-action-player secondary" title="Abrir no player padrão do Windows">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polygon points="5 3 19 12 5 21 5 3"></polygon>
+            </svg>
+            Reprodutor Externo
+          </button>
+          <button id="btnPlayerRevelarExplorer" class="btn-action-player secondary" title="Destacar arquivo na pasta">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+            </svg>
+            Mostrar na Pasta
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       POPUP DE SELEÇÃO DE PASTA INICIAL
+       ============================================================ -->
+  <div id="popupPasta" class="popup-backdrop" hidden>
+    <div class="popup-card">
+      <div class="popup-icon">📁</div>
+      <h2>Bem-vindo ao MediaFinder</h2>
+      <p>Selecione a pasta onde seus vídeos estão armazenados para carregar a sua coleção com capas automáticas.</p>
+
+      <div class="popup-buttons">
+        <button id="popupSelecionar" class="popup-btn primary">Selecionar Pasta de Vídeos</button>
+        <button id="popupCancelar" class="popup-btn secondary">Mais Tarde</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       RODAPÉ (FOOTER)
+       ============================================================ -->
+  <footer id="appFooter">
+    <div class="footer-content">
+      <p>
+        <strong>MediaFinder</strong> &copy; 2025-2026 — Desenvolvido por 
+        <a href="#" id="linkAutor">Joadson Rocha</a>. 
+        Licenciado sob <span class="license-tag">GNU GPLv3</span>.
+      </p>
+    </div>
+  </footer>
+
+  <!-- Elemento Flutuante de Notificação (Toast) -->
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <!-- Script principal do processo de renderização -->
+  <script src="renderer.js"></script>
+</body>
+</html>
